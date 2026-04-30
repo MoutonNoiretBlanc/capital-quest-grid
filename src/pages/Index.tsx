@@ -38,14 +38,14 @@ const Index = () => {
         date={grid.date}
       />
 
-      <main className="mx-auto max-w-4xl px-4 py-6 sm:py-10">
-        <div className="mb-6 flex items-start justify-between gap-4">
+      <main className="mx-auto max-w-4xl px-6 py-10 sm:py-16">
+        <div className="mb-10 flex items-start justify-between gap-6 sm:mb-14">
           <div className="max-w-xl">
-            <h2 className="font-display text-2xl font-700 leading-tight sm:text-3xl">
+            <h2 className="font-display text-xl font-500 leading-snug text-foreground sm:text-2xl">
               Trouvez la capitale à chaque intersection.
             </h2>
-            <p className="mt-2 flex items-start gap-2 text-sm text-muted-foreground">
-              <Info className="mt-0.5 h-4 w-4 flex-shrink-0" />
+            <p className="mt-3 flex items-start gap-2 text-sm font-300 leading-relaxed text-muted-foreground">
+              <Info className="mt-0.5 h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
               <span>
                 Chaque capitale doit satisfaire à la fois la condition de sa ligne
                 et celle de sa colonne. Plus la ville est petite, plus elle rapporte.
@@ -59,16 +59,16 @@ const Index = () => {
               reset();
               setEndOpen(false);
             }}
-            className="font-mono text-xs uppercase tracking-wider"
+            className="rounded-sm font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground"
           >
-            <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
+            <RotateCcw className="mr-1.5 h-3.5 w-3.5" strokeWidth={1.5} />
             Réinit.
           </Button>
         </div>
 
         <Board grid={grid} state={state} onSubmit={submitAnswer} />
 
-        <footer className="mt-12 border-t border-border pt-6 text-center font-mono text-xs uppercase tracking-widest text-muted-foreground">
+        <footer className="mt-20 border-t border-border/60 pt-6 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           Une nouvelle grille chaque jour · {grid.date}
         </footer>
       </main>
