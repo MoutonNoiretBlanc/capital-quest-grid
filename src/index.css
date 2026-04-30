@@ -125,38 +125,32 @@
   .dot-oceania  { background-color: hsl(var(--c-oceania)); }
 }
 
-/* ========== Grid cell — light borders that don't touch corners ========== */
+/* ========== Grid cell — light borders that don't touch corners ==========
+   Each edge is a 95%-long line, drawn via background-image gradients on the
+   cell itself. This keeps corners "open" for an airy, geometric look. */
 
 .cg-cell {
   position: relative;
-  background: hsl(var(--card));
+  background-color: hsl(var(--card));
+  background-repeat: no-repeat;
+  background-image:
+    /* top */    linear-gradient(to right, hsl(var(--border-strong)), hsl(var(--border-strong))),
+    /* bottom */ linear-gradient(to right, hsl(var(--border-strong)), hsl(var(--border-strong))),
+    /* left */   linear-gradient(to bottom, hsl(var(--border-strong)), hsl(var(--border-strong))),
+    /* right */  linear-gradient(to bottom, hsl(var(--border-strong)), hsl(var(--border-strong)));
+  background-size:
+    95% 1px,
+    95% 1px,
+    1px 95%,
+    1px 95%;
+  background-position:
+    center top,
+    center bottom,
+    left center,
+    right center;
   transition: background-color 0.3s var(--transition-smooth);
 }
 
-/* Borders drawn as pseudo-elements, stopping short of the corners (95%) */
-.cg-cell::before,
-.cg-cell::after {
-  content: "";
-  position: absolute;
-  background: hsl(var(--border-strong));
-  pointer-events: none;
-}
-/* Horizontal lines (top + bottom), 95% width, centered */
-.cg-cell::before {
-  left: 2.5%;
-  right: 2.5%;
-  top: 0;
-  height: 1px;
-  box-shadow: 0 calc(100% + -1px) 0 0 hsl(var(--border-strong));
-}
-/* Vertical lines (left + right), 95% height, centered */
-.cg-cell::after {
-  top: 2.5%;
-  bottom: 2.5%;
-  left: 0;
-  width: 1px;
-  box-shadow: calc(100% - 1px) 0 0 0 hsl(var(--border-strong));
-}
 
 /* Hover circle — subtle expanding disc */
 .cg-hover-circle {
