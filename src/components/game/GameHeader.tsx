@@ -13,7 +13,7 @@ export function GameHeader({ lives, maxLives, score, date }: GameHeaderProps) {
     <header className="w-full border-b border-border/70 bg-background/80 backdrop-blur-sm">
       <div className="mx-auto flex max-w-4xl flex-col gap-3 px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:py-7">
         <div className="flex items-baseline gap-3">
-          <h1 className="font-display text-2xl font-600 tracking-tight sm:text-[28px]">
+          <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-[28px]">
             Capital<span className="text-foreground/30">·</span>Grid
           </h1>
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -42,7 +42,7 @@ export function GameHeader({ lives, maxLives, score, date }: GameHeaderProps) {
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               Score
             </span>
-            <span className="font-display text-xl font-500 tabular-nums">
+            <span className="font-display text-xl font-medium tabular-nums">
               {score}
             </span>
           </div>

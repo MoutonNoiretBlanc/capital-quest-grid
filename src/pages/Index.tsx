@@ -41,10 +41,10 @@ const Index = () => {
       <main className="mx-auto max-w-4xl px-6 py-10 sm:py-16">
         <div className="mb-10 flex items-start justify-between gap-6 sm:mb-14">
           <div className="max-w-xl">
-            <h2 className="font-display text-xl font-500 leading-snug text-foreground sm:text-2xl">
+            <h2 className="font-display text-xl font-medium leading-snug text-foreground sm:text-2xl">
               Trouvez la capitale à chaque intersection.
             </h2>
-            <p className="mt-3 flex items-start gap-2 text-sm font-300 leading-relaxed text-muted-foreground">
+            <p className="mt-3 flex items-start gap-2 text-sm font-light leading-relaxed text-muted-foreground">
               <Info className="mt-0.5 h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
               <span>
                 Chaque capitale doit satisfaire à la fois la condition de sa ligne

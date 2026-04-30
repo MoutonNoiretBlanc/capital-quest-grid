@@ -67,7 +67,7 @@ export function CapitalSearch({ onSelect, excluded = [], autoFocus }: CapitalSea
                     isUsed && "cursor-not-allowed opacity-40"
                   )}
                 >
-                  <span className="font-display font-600">{cap.name}</span>
+                  <span className="font-display font-semibold">{cap.name}</span>
                   <span className="font-mono text-xs text-muted-foreground">
                     {cap.country}
                     {isUsed && " · utilisée"}

@@ -55,14 +55,14 @@ export function EndGameDialog({ state, open, onOpenChange, onReset }: EndGameDia
             <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
               Score
             </p>
-            <p className="font-display text-3xl font-700 tabular-nums">{state.score}</p>
+            <p className="font-display text-3xl font-bold tabular-nums">{state.score}</p>
           </div>
           <div className="h-10 w-px bg-border" />
           <div className="text-center">
             <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
               Cases
             </p>
-            <p className="font-display text-3xl font-700 tabular-nums">
+            <p className="font-display text-3xl font-bold tabular-nums">
               {state.cells.flat().filter((c) => c.status === "filled").length}/9
             </p>
           </div>

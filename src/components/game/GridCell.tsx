@@ -71,7 +71,7 @@ export const GridCell = forwardRef<HTMLDivElement, GridCellProps>(function GridC
           aria-hidden
         />
         <div className="relative z-[1] flex h-full flex-col items-center justify-center px-2 text-center">
-          <p className="font-display text-sm font-500 leading-tight text-foreground sm:text-base">
+          <p className="font-display text-sm font-medium leading-tight text-foreground sm:text-base">
             {cell.capitalName}
           </p>
           <p className="mt-1 font-mono text-[10px] tracking-wider text-muted-foreground sm:text-[11px]">
@@ -114,7 +114,7 @@ export const GridCell = forwardRef<HTMLDivElement, GridCellProps>(function GridC
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="rounded-sm border-border/80 sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="font-display text-lg font-500">
+            <DialogTitle className="font-display text-lg font-medium">
               Quelle capitale ?
             </DialogTitle>
             <DialogDescription className="font-mono text-[11px] uppercase tracking-widest">

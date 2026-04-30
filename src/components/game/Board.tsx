@@ -99,7 +99,7 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
             data-axis="col"
             className="cg-head flex items-end justify-center"
           >
-            <span className="font-display text-[11px] font-500 uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
+            <span className="font-display text-[11px] font-medium uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
               {c.label}
             </span>
           </div>
@@ -188,7 +188,7 @@ function RowFragment({
         data-axis="row"
         className="cg-head flex items-center justify-end pr-3 text-right"
       >
-        <span className="font-display text-[11px] font-500 uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
+        <span className="font-display text-[11px] font-medium uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
           {rowCond.label}
         </span>
       </div>
