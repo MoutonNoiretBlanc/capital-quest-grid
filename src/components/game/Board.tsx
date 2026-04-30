@@ -1,5 +1,7 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GridCell } from "./GridCell";
-import type { DailyGrid, GameState } from "@/types/capital";
+import { continentVar } from "@/lib/continent";
+import type { Continent, DailyGrid, GameState } from "@/types/capital";
 
 interface BoardProps {
   grid: DailyGrid;
@@ -11,21 +13,93 @@ interface BoardProps {
   ) => { ok: boolean; message: string; points?: number };
 }
 
+interface Laser {
+  id: number;
+  axis: "h" | "v";
+  left: number;
+  top: number;
+  length: number;
+  color: string;
+}
+
 export function Board({ grid, state, onSubmit }: BoardProps) {
   const disabled = state.status !== "playing";
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const colHeadRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const rowHeadRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cellRefs = useRef<(HTMLDivElement | null)[][]>([[], [], []]);
+  const [lasers, setLasers] = useState<Laser[]>([]);
+  const laserIdRef = useRef(0);
+
+  const fireLasers = useCallback(
+    (row: number, col: number, continent: Continent) => {
+      const wrap = wrapRef.current;
+      const cell = cellRefs.current[row]?.[col];
+      const colHead = colHeadRefs.current[col];
+      const rowHead = rowHeadRefs.current[row];
+      if (!wrap || !cell || !colHead || !rowHead) return;
+      const wrapBox = wrap.getBoundingClientRect();
+      const cellBox = cell.getBoundingClientRect();
+      const colBox = colHead.getBoundingClientRect();
+      const rowBox = rowHead.getBoundingClientRect();
+
+      // Origin: dot is roughly top-left of cell (offset 14,14)
+      const ox = cellBox.left - wrapBox.left + 14;
+      const oy = cellBox.top - wrapBox.top + 14;
+
+      // Vertical laser to column header (going up)
+      const colTargetY = colBox.bottom - wrapBox.top;
+      const vLength = oy - colTargetY;
+      // Horizontal laser to row header (going left)
+      const rowTargetX = rowBox.right - wrapBox.left;
+      const hLength = ox - rowTargetX;
+
+      const color = continentVar(continent);
+      const id1 = ++laserIdRef.current;
+      const id2 = ++laserIdRef.current;
+      const newLasers: Laser[] = [
+        {
+          id: id1,
+          axis: "v",
+          left: ox,
+          top: colTargetY,
+          length: vLength,
+          color,
+        },
+        {
+          id: id2,
+          axis: "h",
+          left: rowTargetX,
+          top: oy,
+          length: hLength,
+          color,
+        },
+      ];
+      setLasers((l) => [...l, ...newLasers]);
+      setTimeout(() => {
+        setLasers((l) => l.filter((x) => x.id !== id1 && x.id !== id2));
+      }, 1500);
+    },
+    []
+  );
+
+  // Cleanup lasers on unmount
+  useEffect(() => () => setLasers([]), []);
 
   return (
-    <div className="mx-auto w-full max-w-2xl">
-      <div className="grid grid-cols-[minmax(80px,1fr)_repeat(3,minmax(0,2fr))] gap-2 sm:gap-3">
+    <div ref={wrapRef} className="relative mx-auto w-full max-w-2xl">
+      <div className="grid grid-cols-[minmax(90px,0.9fr)_repeat(3,minmax(0,1fr))] gap-3 sm:gap-4">
         {/* Top-left empty */}
         <div />
         {/* Column headers */}
-        {grid.cols.map((c) => (
+        {grid.cols.map((c, i) => (
           <div
             key={c.id}
-            className="flex items-center justify-center rounded-sm border border-border bg-accent/90 px-2 py-3 text-center shadow-paper"
+            ref={(el) => (colHeadRefs.current[i] = el)}
+            data-axis="col"
+            className="cg-head flex items-end justify-center"
           >
-            <span className="font-display text-xs font-600 leading-tight text-accent-foreground sm:text-sm">
+            <span className="font-display text-[11px] font-500 uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
               {c.label}
             </span>
           </div>
@@ -40,8 +114,45 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
             state={state}
             disabled={disabled}
             onSubmit={onSubmit}
+            colHeadRefs={colHeadRefs}
+            rowHeadRefs={rowHeadRefs}
+            cellRefs={cellRefs}
+            onValidated={fireLasers}
           />
         ))}
+      </div>
+
+      {/* Laser overlay */}
+      <div className="pointer-events-none absolute inset-0">
+        {lasers.map((l) =>
+          l.axis === "h" ? (
+            <span
+              key={l.id}
+              className="cg-laser cg-laser--h"
+              style={
+                {
+                  left: `${l.left}px`,
+                  top: `${l.top}px`,
+                  width: `${Math.max(0, l.length)}px`,
+                  ["--laser-color" as string]: l.color,
+                } as React.CSSProperties
+              }
+            />
+          ) : (
+            <span
+              key={l.id}
+              className="cg-laser cg-laser--v"
+              style={
+                {
+                  left: `${l.left}px`,
+                  top: `${l.top}px`,
+                  height: `${Math.max(0, l.length)}px`,
+                  ["--laser-color" as string]: l.color,
+                } as React.CSSProperties
+              }
+            />
+          )
+        )}
       </div>
     </div>
   );
@@ -54,6 +165,10 @@ function RowFragment({
   state,
   disabled,
   onSubmit,
+  colHeadRefs,
+  rowHeadRefs,
+  cellRefs,
+  onValidated,
 }: {
   rowCond: { id: string; label: string };
   row: number;
@@ -61,23 +176,39 @@ function RowFragment({
   state: GameState;
   disabled: boolean;
   onSubmit: BoardProps["onSubmit"];
+  colHeadRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
+  rowHeadRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
+  cellRefs: React.MutableRefObject<(HTMLDivElement | null)[][]>;
+  onValidated: (row: number, col: number, continent: Continent) => void;
 }) {
   return (
     <>
-      <div className="flex items-center justify-center rounded-sm border border-border bg-accent/90 px-2 py-3 text-center shadow-paper">
-        <span className="font-display text-xs font-600 leading-tight text-accent-foreground sm:text-sm">
+      <div
+        ref={(el) => (rowHeadRefs.current[row] = el)}
+        data-axis="row"
+        className="cg-head flex items-center justify-end pr-3 text-right"
+      >
+        <span className="font-display text-[11px] font-500 uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
           {rowCond.label}
         </span>
       </div>
       {grid.cols.map((colCond, c) => (
         <GridCell
           key={`${row}-${c}`}
+          ref={(el) => {
+            if (!cellRefs.current[row]) cellRefs.current[row] = [];
+            cellRefs.current[row][c] = el;
+          }}
           cell={state.cells[row][c]}
           rowCond={grid.rows[row]}
           colCond={colCond}
           disabled={disabled}
           usedCapitals={state.usedCapitals}
-          onSubmit={(name) => onSubmit(row, c, name)}
+          onSubmit={(name) => {
+            const result = onSubmit(row, c, name);
+            return result;
+          }}
+          onValidated={(continent) => onValidated(row, c, continent)}
         />
       ))}
     </>
