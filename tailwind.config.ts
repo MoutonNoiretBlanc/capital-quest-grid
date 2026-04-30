@@ -15,10 +15,18 @@ export default {
     extend: {
       colors: {
         border: "hsl(var(--border))",
+        "border-strong": "hsl(var(--border-strong))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        continent: {
+          europe: "hsl(var(--c-europe))",
+          asia: "hsl(var(--c-asia))",
+          africa: "hsl(var(--c-africa))",
+          america: "hsl(var(--c-america))",
+          oceania: "hsl(var(--c-oceania))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
