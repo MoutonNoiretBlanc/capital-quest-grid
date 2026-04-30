@@ -96,6 +96,7 @@ export function useDailyGame() {
           status: "filled",
           capitalName: capital.name,
           score: points,
+          continent: capital.continent,
         };
         const filledCount = cells.flat().filter((c) => c.status === "filled").length;
         const won = filledCount === 9;

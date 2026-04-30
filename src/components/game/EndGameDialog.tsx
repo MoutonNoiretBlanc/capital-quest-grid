@@ -39,7 +39,7 @@ export function EndGameDialog({ state, open, onOpenChange, onReset }: EndGameDia
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <div className="mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-copper text-primary-foreground">
+          <div className="mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-foreground text-primary-foreground">
             {won ? <Trophy className="h-7 w-7" /> : <Skull className="h-7 w-7" />}
           </div>
           <DialogTitle className="text-center font-display text-2xl">
@@ -55,14 +55,14 @@ export function EndGameDialog({ state, open, onOpenChange, onReset }: EndGameDia
             <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
               Score
             </p>
-            <p className="font-display text-3xl font-700 tabular-nums">{state.score}</p>
+            <p className="font-display text-3xl font-bold tabular-nums">{state.score}</p>
           </div>
           <div className="h-10 w-px bg-border" />
           <div className="text-center">
             <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
               Cases
             </p>
-            <p className="font-display text-3xl font-700 tabular-nums">
+            <p className="font-display text-3xl font-bold tabular-nums">
               {state.cells.flat().filter((c) => c.status === "filled").length}/9
             </p>
           </div>
@@ -89,7 +89,7 @@ export function EndGameDialog({ state, open, onOpenChange, onReset }: EndGameDia
             <Share2 className="mr-2 h-4 w-4" />
             Partager
           </Button>
-          <Button onClick={onReset} className="flex-1 bg-gradient-copper">
+          <Button onClick={onReset} className="flex-1 bg-foreground">
             Rejouer
           </Button>
         </div>

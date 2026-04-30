@@ -36,6 +36,7 @@ export interface CellState {
   status: CellStatus;
   capitalName?: string;
   score?: number;
+  continent?: Continent;
 }
 
 export interface GameState {

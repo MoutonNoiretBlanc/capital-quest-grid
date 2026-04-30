@@ -37,7 +37,7 @@ export function CapitalSearch({ onSelect, excluded = [], autoFocus }: CapitalSea
   return (
     <div className="w-full">
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" strokeWidth={1.5} />
         <Input
           autoFocus={autoFocus}
           value={query}
@@ -47,11 +47,11 @@ export function CapitalSearch({ onSelect, excluded = [], autoFocus }: CapitalSea
           }}
           onKeyDown={handleKeyDown}
           placeholder="Tape une capitale…"
-          className="pl-9 font-mono text-sm"
+          className="rounded-sm border-border/80 pl-9 font-sans text-sm"
         />
       </div>
       {results.length > 0 && (
-        <ul className="mt-2 max-h-64 overflow-y-auto rounded-sm border border-border bg-popover shadow-deep">
+        <ul className="mt-2 max-h-64 overflow-y-auto rounded-sm border border-border/80 bg-popover">
           {results.map((cap, i) => {
             const isUsed = excluded.includes(cap.name);
             return (
@@ -67,7 +67,7 @@ export function CapitalSearch({ onSelect, excluded = [], autoFocus }: CapitalSea
                     isUsed && "cursor-not-allowed opacity-40"
                   )}
                 >
-                  <span className="font-display font-600">{cap.name}</span>
+                  <span className="font-display font-semibold">{cap.name}</span>
                   <span className="font-mono text-xs text-muted-foreground">
                     {cap.country}
                     {isUsed && " · utilisée"}
