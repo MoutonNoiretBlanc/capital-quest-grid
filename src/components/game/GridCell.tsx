@@ -72,14 +72,12 @@ export const GridCell = forwardRef<HTMLDivElement, GridCellProps>(function GridC
         <span className="cg-anchor animate-dot-pop" aria-hidden />
 
         <div className="relative z-[1] flex h-full flex-col items-center justify-center gap-1 px-3 text-center">
-          <div className="text-xl leading-none sm:text-2xl" aria-hidden>
-            {flagFor(cell.country)}
-          </div>
           <p className="font-display text-sm font-semibold leading-tight text-foreground sm:text-[15px]">
             {cell.capitalName}
           </p>
-          <p className="text-[10px] leading-tight text-muted-foreground sm:text-[11px]">
-            {cell.country}
+          <p className="flex items-center justify-center gap-1.5 text-[10px] leading-tight text-muted-foreground/80 sm:text-[11px]">
+            <span>{cell.country}</span>
+            <span aria-hidden>{flagFor(cell.country)}</span>
           </p>
         </div>
 
