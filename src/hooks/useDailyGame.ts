@@ -95,6 +95,7 @@ export function useDailyGame() {
         cells[row][col] = {
           status: "filled",
           capitalName: capital.name,
+          country: capital.country,
           score: points,
           continent: capital.continent,
         };

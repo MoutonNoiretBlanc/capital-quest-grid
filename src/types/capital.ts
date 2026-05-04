@@ -35,6 +35,7 @@ export type CellStatus = "empty" | "filled";
 export interface CellState {
   status: CellStatus;
   capitalName?: string;
+  country?: string;
   score?: number;
   continent?: Continent;
 }
