@@ -44,12 +44,12 @@
 
     --radius: 0.125rem;                  /* 2px */
 
-    /* Continents — bright dot accents */
-    --c-europe: 215 85% 55%;
-    --c-asia: 45 95% 55%;
-    --c-africa: 145 60% 42%;
-    --c-america: 0 78% 56%;
-    --c-oceania: 280 60% 58%;
+    /* Continents — modern pastel accents */
+    --c-europe: 212 70% 62%;    /* pastel blue */
+    --c-asia: 38 88% 58%;       /* saffron yellow */
+    --c-africa: 145 32% 48%;    /* sage green */
+    --c-america: 12 72% 58%;    /* terracotta */
+    --c-oceania: 268 45% 64%;   /* soft purple */
 
     --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -133,7 +133,51 @@
   border: 1px solid hsl(var(--border-strong));
   border-radius: 14px;
   overflow: hidden;
-  transition: background-color 0.3s var(--transition-smooth), border-color 0.3s var(--transition-smooth);
+  transition:
+    background-color 0.5s var(--transition-smooth),
+    border-color 0.4s var(--transition-smooth),
+    box-shadow 0.4s var(--transition-smooth);
+}
+
+/* Filled / locked state */
+.cg-cell[data-filled="true"] {
+  background-color: hsl(0 0% 100%);
+  border-color: hsl(var(--border));
+  box-shadow:
+    inset 3px 0 0 0 hsl(var(--cell-accent, var(--primary-glow))),
+    0 1px 0 0 hsl(var(--border) / 0.6);
+  animation: cell-lock 0.55s var(--transition-smooth) both;
+}
+
+/* Center anchor dot inside filled cell */
+.cg-anchor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: hsl(var(--cell-accent, var(--primary-glow)));
+  box-shadow: 0 0 0 4px hsl(var(--cell-accent, var(--primary-glow)) / 0.12);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Score bubble */
+.cg-score {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: hsl(var(--muted-foreground));
+  background: hsl(var(--secondary));
+  border-radius: 9999px;
+  padding: 2px 8px;
+  line-height: 1.4;
+  z-index: 3;
 }
 
 
