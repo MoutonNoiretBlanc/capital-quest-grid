@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/dialog";
 import { CapitalSearch } from "./CapitalSearch";
 import { cn } from "@/lib/utils";
-import { continentDotClass } from "@/lib/continent";
+import { continentVar } from "@/lib/continent";
+import { flagFor } from "@/lib/countryFlags";
 import type { CellState, Condition, Continent } from "@/types/capital";
 import { toast } from "sonner";
 
@@ -60,24 +61,29 @@ export const GridCell = forwardRef<HTMLDivElement, GridCellProps>(function GridC
       <div
         ref={ref}
         data-filled="true"
+        style={
+          {
+            ["--cell-accent" as string]: `hsl(${continentVar(cell.continent).replace("var(", "").replace(")", "")})`,
+          } as React.CSSProperties
+        }
         className="cg-cell relative aspect-square animate-fade-up"
       >
-        {/* Continent dot (top-left) */}
-        <span
-          className={cn(
-            "absolute left-2.5 top-2.5 z-10 h-2 w-2 rounded-full animate-dot-pop",
-            continentDotClass(cell.continent)
-          )}
-          aria-hidden
-        />
-        <div className="relative z-[1] flex h-full flex-col items-center justify-center px-2 text-center">
-          <p className="font-display text-sm font-medium leading-tight text-foreground sm:text-base">
+        {/* Center anchor dot — endpoint for connection lines */}
+        <span className="cg-anchor animate-dot-pop" aria-hidden />
+
+        <div className="relative z-[1] flex h-full flex-col items-center justify-center gap-1 px-3 text-center">
+          <div className="text-xl leading-none sm:text-2xl" aria-hidden>
+            {flagFor(cell.country)}
+          </div>
+          <p className="font-display text-sm font-semibold leading-tight text-foreground sm:text-[15px]">
             {cell.capitalName}
           </p>
-          <p className="mt-1 font-mono text-[10px] tracking-wider text-muted-foreground sm:text-[11px]">
-            +{cell.score}
+          <p className="text-[10px] leading-tight text-muted-foreground sm:text-[11px]">
+            {cell.country}
           </p>
         </div>
+
+        <span className="cg-score">+{cell.score} pts</span>
       </div>
     );
   }
