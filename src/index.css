@@ -125,30 +125,15 @@
   .dot-oceania  { background-color: hsl(var(--c-oceania)); }
 }
 
-/* ========== Grid cell — light borders that don't touch corners ==========
-   Each edge is a 95%-long line, drawn via background-image gradients on the
-   cell itself. This keeps corners "open" for an airy, geometric look. */
+/* ========== Grid cell — soft rounded with thin border following the curve ========== */
 
 .cg-cell {
   position: relative;
   background-color: hsl(var(--card));
-  background-repeat: no-repeat;
-  background-image:
-    /* top */    linear-gradient(to right, hsl(var(--border-strong)), hsl(var(--border-strong))),
-    /* bottom */ linear-gradient(to right, hsl(var(--border-strong)), hsl(var(--border-strong))),
-    /* left */   linear-gradient(to bottom, hsl(var(--border-strong)), hsl(var(--border-strong))),
-    /* right */  linear-gradient(to bottom, hsl(var(--border-strong)), hsl(var(--border-strong)));
-  background-size:
-    95% 1px,
-    95% 1px,
-    1px 95%,
-    1px 95%;
-  background-position:
-    center top,
-    center bottom,
-    left center,
-    right center;
-  transition: background-color 0.3s var(--transition-smooth);
+  border: 1px solid hsl(var(--border-strong));
+  border-radius: 14px;
+  overflow: hidden;
+  transition: background-color 0.3s var(--transition-smooth), border-color 0.3s var(--transition-smooth);
 }
 
 
@@ -184,29 +169,22 @@
   display: none;
 }
 
-/* Header cells */
+/* Header cells — soft pill, no borders */
 .cg-head {
   position: relative;
-  padding: 0.75rem 0.5rem;
+  padding: 0.85rem 0.75rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(var(--secondary));
+  border-radius: 14px;
+  min-height: 56px;
 }
-.cg-head[data-axis="col"]::after {
-  content: "";
-  position: absolute;
-  left: 10%;
-  right: 10%;
-  bottom: 0;
-  height: 1px;
-  background: hsl(var(--border));
-}
-.cg-head[data-axis="row"]::after {
-  content: "";
-  position: absolute;
-  top: 10%;
-  bottom: 10%;
-  right: 0;
-  width: 1px;
-  background: hsl(var(--border));
+.cg-head[data-axis="row"] {
+  justify-content: center;
+  text-align: center;
+  padding-right: 0.75rem;
 }
 
 /* ========== Animations ========== */
