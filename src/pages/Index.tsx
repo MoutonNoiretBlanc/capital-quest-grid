@@ -38,7 +38,7 @@ const Index = () => {
         date={grid.date}
       />
 
-      <main className="mx-auto max-w-4xl px-6 py-10 sm:py-16">
+      <main className="mx-auto max-w-4xl px-6 py-10 sm:py-16 text-left">
         <div className="mb-10 flex items-start justify-between gap-6 sm:mb-14">
           <div className="max-w-xl">
             <h2 className="font-display text-xl font-medium leading-snug text-foreground sm:text-2xl">
