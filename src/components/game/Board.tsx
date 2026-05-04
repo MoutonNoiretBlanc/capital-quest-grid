@@ -88,7 +88,7 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
 
   return (
     <div ref={wrapRef} className="relative mx-auto w-full max-w-2xl">
-      <div className="grid grid-cols-[minmax(90px,0.9fr)_repeat(3,minmax(0,1fr))] gap-3 sm:gap-4">
+      <div className="grid grid-cols-[minmax(90px,0.9fr)_repeat(3,minmax(0,1fr))] gap-4 sm:gap-5">
         {/* Top-left empty */}
         <div />
         {/* Column headers */}
@@ -97,7 +97,7 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
             key={c.id}
             ref={(el) => (colHeadRefs.current[i] = el)}
             data-axis="col"
-            className="cg-head flex items-end justify-center"
+            className="cg-head"
           >
             <span className="font-display text-[11px] font-medium uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
               {c.label}
@@ -186,7 +186,7 @@ function RowFragment({
       <div
         ref={(el) => (rowHeadRefs.current[row] = el)}
         data-axis="row"
-        className="cg-head flex items-center justify-end pr-3 text-right"
+        className="cg-head"
       >
         <span className="font-display text-[11px] font-medium uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
           {rowCond.label}
