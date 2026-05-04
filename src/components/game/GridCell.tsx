@@ -63,7 +63,7 @@ export const GridCell = forwardRef<HTMLDivElement, GridCellProps>(function GridC
         data-filled="true"
         style={
           {
-            ["--cell-accent" as string]: `hsl(${continentVar(cell.continent).replace("var(", "").replace(")", "")})`,
+            ["--cell-accent" as string]: `hsl(${continentVar(cell.continent)})`,
           } as React.CSSProperties
         }
         className="cg-cell relative aspect-square animate-fade-up"
