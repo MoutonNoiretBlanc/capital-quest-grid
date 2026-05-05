@@ -78,16 +78,16 @@ export const GridCell = forwardRef<HTMLDivElement, GridCellProps>(function GridC
           <p className="flex items-center justify-center gap-1.5 text-[10px] leading-tight text-muted-foreground/80 sm:text-[11px]">
             <span>{cell.country}</span>
             {flagImgSrc(cell.country) && (
-              <img
-                src={flagImgSrc(cell.country)}
-                srcSet={`${flagImgSrc(cell.country, 20)} 1x, ${flagImgSrc(cell.country, 40)} 2x`}
-                width={16}
-                height={12}
-                alt=""
-                aria-hidden
-                className="inline-block h-3 w-auto rounded-[2px] shadow-[0_0_0_1px_hsl(var(--border))]"
-                loading="lazy"
-              />
+              <span className="inline-flex h-[18px] w-6 shrink-0 overflow-hidden rounded-[2px] shadow-[0_0_0_1px_hsl(var(--border))]">
+                <img
+                  src={flagImgSrc(cell.country, 40)}
+                  srcSet={`${flagImgSrc(cell.country, 40)} 1x, ${flagImgSrc(cell.country, 80)} 2x`}
+                  alt=""
+                  aria-hidden
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </span>
             )}
           </p>
         </div>
