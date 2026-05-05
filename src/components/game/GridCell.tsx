@@ -10,7 +10,7 @@ import {
 import { CapitalSearch } from "./CapitalSearch";
 import { cn } from "@/lib/utils";
 import { continentVar } from "@/lib/continent";
-import { flagFor } from "@/lib/countryFlags";
+import { flagImgSrc } from "@/lib/countryFlags";
 import type { CellState, Condition, Continent } from "@/types/capital";
 import { toast } from "sonner";
 
@@ -77,7 +77,18 @@ export const GridCell = forwardRef<HTMLDivElement, GridCellProps>(function GridC
           </p>
           <p className="flex items-center justify-center gap-1.5 text-[10px] leading-tight text-muted-foreground/80 sm:text-[11px]">
             <span>{cell.country}</span>
-            <span aria-hidden>{flagFor(cell.country)}</span>
+            {flagImgSrc(cell.country) && (
+              <img
+                src={flagImgSrc(cell.country)}
+                srcSet={`${flagImgSrc(cell.country, 20)} 1x, ${flagImgSrc(cell.country, 40)} 2x`}
+                width={16}
+                height={12}
+                alt=""
+                aria-hidden
+                className="inline-block h-3 w-auto rounded-[2px] shadow-[0_0_0_1px_hsl(var(--border))]"
+                loading="lazy"
+              />
+            )}
           </p>
         </div>
 
