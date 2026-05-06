@@ -139,13 +139,15 @@
     box-shadow 0.4s var(--transition-smooth);
 }
 
-/* Filled / locked state */
+/* Filled / locked state — emerald glow */
 .cg-cell[data-filled="true"] {
   background-color: hsl(0 0% 100%);
-  border-color: hsl(var(--border));
+  border-color: hsl(152 76% 44%);
   box-shadow:
     inset 3px 0 0 0 hsl(var(--cell-accent, var(--primary-glow))),
-    0 1px 0 0 hsl(var(--border) / 0.6);
+    0 0 0 1px hsl(152 76% 44% / 0.45),
+    0 0 18px 2px hsl(152 76% 44% / 0.35),
+    0 0 32px 6px hsl(152 76% 44% / 0.18);
   animation: cell-lock 0.55s var(--transition-smooth) both;
 }
 

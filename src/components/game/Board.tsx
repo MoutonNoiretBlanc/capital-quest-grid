@@ -43,34 +43,36 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
       const colBox = colHead.getBoundingClientRect();
       const rowBox = rowHead.getBoundingClientRect();
 
-      // Origin: dot is roughly top-left of cell (offset 14,14)
-      const ox = cellBox.left - wrapBox.left + 14;
-      const oy = cellBox.top - wrapBox.top + 14;
+      // Vertical laser: from column header bottom to cell top edge
+      const vTop = colBox.bottom - wrapBox.top;
+      const vBottom = cellBox.top - wrapBox.top;
+      const vLeft = cellBox.left - wrapBox.left + cellBox.width / 2;
+      const vLength = vBottom - vTop;
 
-      // Vertical laser to column header (going up)
-      const colTargetY = colBox.bottom - wrapBox.top;
-      const vLength = oy - colTargetY;
-      // Horizontal laser to row header (going left)
-      const rowTargetX = rowBox.right - wrapBox.left;
-      const hLength = ox - rowTargetX;
+      // Horizontal laser: from row header right to cell left edge
+      const hLeft = rowBox.right - wrapBox.left;
+      const hRight = cellBox.left - wrapBox.left;
+      const hTop = cellBox.top - wrapBox.top + cellBox.height / 2;
+      const hLength = hRight - hLeft;
 
-      const color = continentVar(continent);
+      // Emerald green for validation
+      const color = "152 76% 44%";
       const id1 = ++laserIdRef.current;
       const id2 = ++laserIdRef.current;
       const newLasers: Laser[] = [
         {
           id: id1,
           axis: "v",
-          left: ox,
-          top: colTargetY,
+          left: vLeft,
+          top: vTop,
           length: vLength,
           color,
         },
         {
           id: id2,
           axis: "h",
-          left: rowTargetX,
-          top: oy,
+          left: hLeft,
+          top: hTop,
           length: hLength,
           color,
         },
