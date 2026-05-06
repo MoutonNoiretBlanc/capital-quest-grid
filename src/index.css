@@ -145,9 +145,7 @@
   border-color: hsl(160 84% 39%);
   box-shadow:
     inset 3px 0 0 0 hsl(var(--cell-accent, var(--primary-glow))),
-    0 0 0 1px hsl(160 84% 39% / 0.5),
-    0 0 18px 2px hsl(160 84% 39% / 0.32),
-    0 0 36px 8px hsl(160 84% 39% / 0.16);
+    0 0 15px rgba(16, 185, 129, 0.6);
   animation: cell-lock-corner 0.6s var(--transition-smooth) both;
   transform-origin: top left;
 }
