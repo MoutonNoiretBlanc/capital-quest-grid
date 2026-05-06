@@ -153,8 +153,26 @@
 }
 
 @keyframes cell-lock-corner {
-  0%   { clip-path: inset(0 100% 100% 0 round 14px); }
-  100% { clip-path: inset(0 0 0 0 round 14px); }
+  0% {
+    border-color: hsl(var(--border-strong));
+    box-shadow:
+      inset 3px 0 0 0 hsl(var(--cell-accent, var(--primary-glow))),
+      0 0 0 0 hsl(160 84% 39% / 0);
+  }
+  35% {
+    border-color: hsl(160 84% 39%);
+    box-shadow:
+      inset 3px 0 0 0 hsl(var(--cell-accent, var(--primary-glow))),
+      -2px -2px 16px 2px hsl(160 84% 39% / 0.7);
+  }
+  100% {
+    border-color: hsl(160 84% 39%);
+    box-shadow:
+      inset 3px 0 0 0 hsl(var(--cell-accent, var(--primary-glow))),
+      0 0 0 1px hsl(160 84% 39% / 0.5),
+      0 0 18px 2px hsl(160 84% 39% / 0.32),
+      0 0 36px 8px hsl(160 84% 39% / 0.16);
+  }
 }
 
 /* Center anchor dot inside filled cell */
