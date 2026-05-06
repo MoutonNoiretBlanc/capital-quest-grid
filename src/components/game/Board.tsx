@@ -43,21 +43,20 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
       const colBox = colHead.getBoundingClientRect();
       const rowBox = rowHead.getBoundingClientRect();
 
-      // Both lasers anchor near (but slightly inside) the top-left corner
-      // so they "bite" the corner elegantly instead of overlapping the border.
-      const OFFSET = 12;
+      // Lasers strike INSIDE the cell, 20px down and 20px right from top-left corner
+      const OFFSET = 20;
       const cellLeft = cellBox.left - wrapBox.left;
       const cellTop = cellBox.top - wrapBox.top;
 
-      // Vertical laser: offset to the right of the left edge, ends exactly at cell top
+      // Vertical laser: from column header bottom down to impact point inside cell
       const vLeft = cellLeft + OFFSET;
       const vTop = colBox.bottom - wrapBox.top;
-      const vLength = cellTop - vTop; // touches the border, no gap
+      const vLength = cellTop + OFFSET - vTop;
 
-      // Horizontal laser: offset below the top edge, ends exactly at cell left
+      // Horizontal laser: from row header right to impact point inside cell
       const hTop = cellTop + OFFSET;
       const hLeft = rowBox.right - wrapBox.left;
-      const hLength = cellLeft - hLeft; // touches the border, no gap
+      const hLength = cellLeft + OFFSET - hLeft;
 
       // Emerald green for validation
       const color = "160 84% 39%";
@@ -128,38 +127,75 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
         ))}
       </div>
 
-      {/* Laser overlay */}
-      <div className="pointer-events-none absolute inset-0">
-        {lasers.map((l) =>
-          l.axis === "h" ? (
-            <span
+      {/* Laser overlay — SVG beams with gaussian blur halo + dash trail */}
+      <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" aria-hidden>
+        <defs>
+          <filter id="laser-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2.4" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <linearGradient id="laser-grad-h" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="hsl(160 84% 39%)" stopOpacity="0" />
+            <stop offset="70%" stopColor="hsl(160 84% 55%)" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#eafff4" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="laser-grad-v" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="hsl(160 84% 39%)" stopOpacity="0" />
+            <stop offset="70%" stopColor="hsl(160 84% 55%)" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#eafff4" stopOpacity="1" />
+          </linearGradient>
+        </defs>
+        {lasers.map((l) => {
+          const len = Math.max(0, Math.abs(l.length));
+          if (l.axis === "h") {
+            const x1 = l.left;
+            const x2 = l.left + l.length;
+            return (
+              <line
+                key={l.id}
+                className="cg-laser-line"
+                x1={x1}
+                y1={l.top}
+                x2={x2}
+                y2={l.top}
+                stroke="url(#laser-grad-h)"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                filter="url(#laser-glow)"
+                style={{
+                  strokeDasharray: `${len} ${len}`,
+                  strokeDashoffset: len,
+                  animation: `laser-dash 0.2s cubic-bezier(0.2,0,0.2,1) forwards, laser-fade-out 0.6s ease-out 0.2s forwards`,
+                }}
+              />
+            );
+          }
+          const y1 = l.top;
+          const y2 = l.top + l.length;
+          return (
+            <line
               key={l.id}
-              className="cg-laser cg-laser--h"
-              style={
-                {
-                  left: `${l.left}px`,
-                  top: `${l.top}px`,
-                  width: `${Math.max(0, l.length)}px`,
-                  ["--laser-color" as string]: l.color,
-                } as React.CSSProperties
-              }
+              className="cg-laser-line"
+              x1={l.left}
+              y1={y1}
+              x2={l.left}
+              y2={y2}
+              stroke="url(#laser-grad-v)"
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              filter="url(#laser-glow)"
+              style={{
+                strokeDasharray: `${len} ${len}`,
+                strokeDashoffset: len,
+                animation: `laser-dash 0.2s cubic-bezier(0.2,0,0.2,1) forwards, laser-fade-out 0.6s ease-out 0.2s forwards`,
+              }}
             />
-          ) : (
-            <span
-              key={l.id}
-              className="cg-laser cg-laser--v"
-              style={
-                {
-                  left: `${l.left}px`,
-                  top: `${l.top}px`,
-                  height: `${Math.max(0, l.length)}px`,
-                  ["--laser-color" as string]: l.color,
-                } as React.CSSProperties
-              }
-            />
-          )
-        )}
-      </div>
+          );
+        })}
+      </svg>
     </div>
   );
 }
