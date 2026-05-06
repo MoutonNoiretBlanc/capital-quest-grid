@@ -45,7 +45,7 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
 
       // Both lasers anchor near (but slightly inside) the top-left corner
       // so they "bite" the corner elegantly instead of overlapping the border.
-      const OFFSET = 6;
+      const OFFSET = 12;
       const cellLeft = cellBox.left - wrapBox.left;
       const cellTop = cellBox.top - wrapBox.top;
 
