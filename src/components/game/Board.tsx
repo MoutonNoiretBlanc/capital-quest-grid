@@ -58,7 +58,7 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
       const hLength = cornerX - hLeft;
 
       // Emerald green for validation
-      const color = "152 76% 44%";
+      const color = "160 84% 39%";
       const id1 = ++laserIdRef.current;
       const id2 = ++laserIdRef.current;
       const newLasers: Laser[] = [
