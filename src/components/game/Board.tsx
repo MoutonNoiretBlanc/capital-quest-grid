@@ -43,19 +43,21 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
       const colBox = colHead.getBoundingClientRect();
       const rowBox = rowHead.getBoundingClientRect();
 
-      // Both lasers now meet at the top-left corner of the validated cell
-      const cornerX = cellBox.left - wrapBox.left;
-      const cornerY = cellBox.top - wrapBox.top;
+      // Both lasers anchor near (but slightly inside) the top-left corner
+      // so they "bite" the corner elegantly instead of overlapping the border.
+      const OFFSET = 4;
+      const cellLeft = cellBox.left - wrapBox.left;
+      const cellTop = cellBox.top - wrapBox.top;
 
-      // Vertical laser: from column header bottom down to cell top-left corner
+      // Vertical laser: offset to the right of the left edge, ends exactly at cell top
+      const vLeft = cellLeft + OFFSET;
       const vTop = colBox.bottom - wrapBox.top;
-      const vLeft = cornerX;
-      const vLength = cornerY - vTop;
+      const vLength = cellTop - vTop; // touches the border, no gap
 
-      // Horizontal laser: from row header right to cell top-left corner
+      // Horizontal laser: offset below the top edge, ends exactly at cell left
+      const hTop = cellTop + OFFSET;
       const hLeft = rowBox.right - wrapBox.left;
-      const hTop = cornerY;
-      const hLength = cornerX - hLeft;
+      const hLength = cellLeft - hLeft; // touches the border, no gap
 
       // Emerald green for validation
       const color = "160 84% 39%";

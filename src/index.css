@@ -306,30 +306,23 @@
   position: absolute;
   pointer-events: none;
   z-index: 5;
-  background: linear-gradient(
-    to right,
-    hsl(var(--laser-color, var(--primary-glow)) / 0),
-    hsl(var(--laser-color, var(--primary-glow)) / 0.95) 30%,
-    hsl(var(--laser-color, var(--primary-glow)) / 0.95) 70%,
-    hsl(var(--laser-color, var(--primary-glow)) / 0)
-  );
+  background: hsl(var(--laser-color, var(--primary-glow)));
   box-shadow:
-    0 0 6px hsl(var(--laser-color, var(--primary-glow)) / 0.6),
-    0 0 14px hsl(var(--laser-color, var(--primary-glow)) / 0.35);
-  animation: laser-fade 1.4s ease-out forwards;
+    0 0 4px hsl(var(--laser-color, var(--primary-glow)) / 0.55),
+    0 0 10px hsl(var(--laser-color, var(--primary-glow)) / 0.3);
 }
 .cg-laser--h {
   height: 1.5px;
   transform-origin: left center;
+  animation: laser-grow 0.6s linear forwards, laser-fade-tail 1.6s ease-out forwards;
 }
 .cg-laser--v {
   width: 1.5px;
-  background: linear-gradient(
-    to bottom,
-    hsl(var(--laser-color, var(--primary-glow)) / 0),
-    hsl(var(--laser-color, var(--primary-glow)) / 0.95) 30%,
-    hsl(var(--laser-color, var(--primary-glow)) / 0.95) 70%,
-    hsl(var(--laser-color, var(--primary-glow)) / 0)
-  );
   transform-origin: center top;
+  animation: laser-grow-y 0.6s linear forwards, laser-fade-tail 1.6s ease-out forwards;
+}
+
+@keyframes laser-fade-tail {
+  0%, 60% { opacity: 1; }
+  100% { opacity: 0; }
 }
