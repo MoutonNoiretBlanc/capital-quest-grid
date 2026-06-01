@@ -68,8 +68,7 @@ export const GridCell = forwardRef<HTMLDivElement, GridCellProps>(function GridC
         }
         className="cg-cell relative aspect-square animate-fade-up"
       >
-        {/* Center anchor dot — endpoint for connection lines */}
-        <span className="cg-anchor animate-dot-pop" aria-hidden />
+        {/* Validation glow only — text & score are clean */}
 
         <div className="relative z-[1] flex h-full flex-col items-center justify-center gap-1 px-3 text-center">
           <p className="font-display text-sm font-semibold leading-tight text-foreground sm:text-[15px]">
