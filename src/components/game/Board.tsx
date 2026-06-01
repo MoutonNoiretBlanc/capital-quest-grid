@@ -91,6 +91,14 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
   // Cleanup lasers on unmount
   useEffect(() => () => setLasers([]), []);
 
+  // Detect completed rows / cols
+  const rowComplete = [0, 1, 2].map((r) =>
+    state.cells[r].every((c) => c.status === "filled")
+  );
+  const colComplete = [0, 1, 2].map((c) =>
+    state.cells.every((row) => row[c].status === "filled")
+  );
+
   return (
     <div ref={wrapRef} className="relative mx-auto w-full max-w-2xl">
       <div className="grid grid-cols-[minmax(90px,0.9fr)_repeat(3,minmax(0,1fr))] gap-4 sm:gap-5">
@@ -102,6 +110,7 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
             key={c.id}
             ref={(el) => (colHeadRefs.current[i] = el)}
             data-axis="col"
+            data-complete={colComplete[i] ? "true" : "false"}
             className="cg-head"
           >
             <span className="font-display text-[11px] font-medium uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
@@ -123,6 +132,8 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
             rowHeadRefs={rowHeadRefs}
             cellRefs={cellRefs}
             onValidated={fireLasers}
+            rowComplete={rowComplete[r]}
+            colComplete={colComplete}
           />
         ))}
       </div>
