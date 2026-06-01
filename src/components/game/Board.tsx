@@ -43,8 +43,8 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
       const colBox = colHead.getBoundingClientRect();
       const rowBox = rowHead.getBoundingClientRect();
 
-      // Lasers strike INSIDE the cell, 20px down and 20px right from top-left corner
-      const OFFSET = 20;
+      // Lasers strike INSIDE the cell, 6px down and 6px right from top-left corner
+      const OFFSET = 6;
       const cellLeft = cellBox.left - wrapBox.left;
       const cellTop = cellBox.top - wrapBox.top;
 
@@ -58,8 +58,8 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
       const hLeft = rowBox.right - wrapBox.left;
       const hLength = cellLeft + OFFSET - hLeft;
 
-      // Emerald green for validation
-      const color = "160 84% 39%";
+      // Retro orange for validation
+      const color = "16 79% 53%";
       const id1 = ++laserIdRef.current;
       const id2 = ++laserIdRef.current;
       const newLasers: Laser[] = [
@@ -138,14 +138,14 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
             </feMerge>
           </filter>
           <linearGradient id="laser-grad-h" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="hsl(160 84% 39%)" stopOpacity="0" />
-            <stop offset="70%" stopColor="hsl(160 84% 55%)" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#eafff4" stopOpacity="1" />
+            <stop offset="0%" stopColor="hsl(16 79% 53%)" stopOpacity="0" />
+            <stop offset="70%" stopColor="hsl(16 90% 60%)" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#fff1e8" stopOpacity="1" />
           </linearGradient>
           <linearGradient id="laser-grad-v" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="hsl(160 84% 39%)" stopOpacity="0" />
-            <stop offset="70%" stopColor="hsl(160 84% 55%)" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#eafff4" stopOpacity="1" />
+            <stop offset="0%" stopColor="hsl(16 79% 53%)" stopOpacity="0" />
+            <stop offset="70%" stopColor="hsl(16 90% 60%)" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#fff1e8" stopOpacity="1" />
           </linearGradient>
         </defs>
         {lasers.map((l) => {
