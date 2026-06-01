@@ -288,3 +288,39 @@
   0%   { opacity: 1; }
   100% { opacity: 0; }
 }
+
+/* ========== Completed row / column — 70s green persistent state ========== */
+
+.cg-cell[data-filled="true"][data-complete="true"] {
+  border-color: hsl(var(--retro70));
+  box-shadow:
+    inset 3px 0 0 0 hsl(var(--retro70)),
+    0 0 0 1px hsl(var(--retro70) / 0.5),
+    0 0 18px 2px hsl(var(--retro70) / 0.32),
+    0 0 36px 8px hsl(var(--retro70) / 0.16);
+  /* Override the lock animation so green is the final persistent color */
+  animation: none;
+  transition:
+    border-color 0.5s var(--transition-smooth),
+    box-shadow 0.5s var(--transition-smooth);
+}
+
+.cg-cell[data-filled="true"][data-complete="true"] .cg-score {
+  background: hsl(var(--retro70));
+  transition: background 0.5s var(--transition-smooth);
+}
+
+.cg-head[data-complete="true"] {
+  border: 1px solid hsl(var(--retro70));
+  background-color: hsl(var(--retro70) / 0.08);
+  box-shadow:
+    0 0 0 1px hsl(var(--retro70) / 0.5),
+    0 0 18px 2px hsl(var(--retro70) / 0.32),
+    0 0 36px 8px hsl(var(--retro70) / 0.16);
+  color: hsl(var(--retro70));
+  transition:
+    border-color 0.5s var(--transition-smooth),
+    background-color 0.5s var(--transition-smooth),
+    box-shadow 0.5s var(--transition-smooth),
+    color 0.5s var(--transition-smooth);
+}
