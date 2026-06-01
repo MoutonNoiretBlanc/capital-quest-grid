@@ -222,6 +222,8 @@ function RowFragment({
   rowHeadRefs,
   cellRefs,
   onValidated,
+  rowComplete,
+  colComplete,
 }: {
   rowCond: { id: string; label: string };
   row: number;
@@ -233,12 +235,15 @@ function RowFragment({
   rowHeadRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
   cellRefs: React.MutableRefObject<(HTMLDivElement | null)[][]>;
   onValidated: (row: number, col: number, continent: Continent) => void;
+  rowComplete: boolean;
+  colComplete: boolean[];
 }) {
   return (
     <>
       <div
         ref={(el) => (rowHeadRefs.current[row] = el)}
         data-axis="row"
+        data-complete={rowComplete ? "true" : "false"}
         className="cg-head"
       >
         <span className="font-display text-[11px] font-medium uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
@@ -257,6 +262,7 @@ function RowFragment({
           colCond={colCond}
           disabled={disabled}
           usedCapitals={state.usedCapitals}
+          lineComplete={rowComplete || colComplete[c]}
           onSubmit={(name) => {
             const result = onSubmit(row, c, name);
             return result;
@@ -267,3 +273,4 @@ function RowFragment({
     </>
   );
 }
+
