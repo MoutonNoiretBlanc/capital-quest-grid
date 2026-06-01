@@ -240,7 +240,7 @@
   display: none;
 }
 
-/* Header cells — ink-tinted pill (5% opacity) */
+/* Header cells — architectural label style */
 .cg-head {
   position: relative;
   padding: 0.85rem 0.75rem;
@@ -248,10 +248,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: hsl(var(--ink) / 0.05);
+  background-color: hsl(var(--ink) / 0.03);
+  border: 1px solid hsl(var(--ink) / 0.85);
   border-radius: 14px;
   min-height: 56px;
   color: hsl(var(--ink));
+}
+
+.cg-head span {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+  line-height: 1.4;
 }
 
 /* ========== Animations ========== */
