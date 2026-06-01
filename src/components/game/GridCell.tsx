@@ -20,12 +20,13 @@ interface GridCellProps {
   colCond: Condition;
   disabled: boolean;
   usedCapitals: string[];
+  lineComplete?: boolean;
   onSubmit: (name: string) => { ok: boolean; message: string; points?: number };
   onValidated?: (continent: Continent) => void;
 }
 
 export const GridCell = forwardRef<HTMLDivElement, GridCellProps>(function GridCell(
-  { cell, rowCond, colCond, disabled, usedCapitals, onSubmit, onValidated },
+  { cell, rowCond, colCond, disabled, usedCapitals, lineComplete, onSubmit, onValidated },
   ref
 ) {
   const [open, setOpen] = useState(false);
