@@ -14,7 +14,7 @@ export function GameHeader({ lives, maxLives, score, date }: GameHeaderProps) {
       <div className="mx-auto flex max-w-4xl flex-col gap-3 px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:py-7">
         <div className="flex items-baseline gap-3">
           <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-[28px]">
-            Capital <span style={{ color: "hsl(var(--retro))" }}>Grid</span>
+            Capital<span className="mx-0.5 text-[hsl(var(--retro))]">•</span>Grid
           </h1>
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             {date}
