@@ -91,6 +91,14 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
   // Cleanup lasers on unmount
   useEffect(() => () => setLasers([]), []);
 
+  // Detect completed rows / cols
+  const rowComplete = [0, 1, 2].map((r) =>
+    state.cells[r].every((c) => c.status === "filled")
+  );
+  const colComplete = [0, 1, 2].map((c) =>
+    state.cells.every((row) => row[c].status === "filled")
+  );
+
   return (
     <div ref={wrapRef} className="relative mx-auto w-full max-w-2xl">
       <div className="grid grid-cols-[minmax(90px,0.9fr)_repeat(3,minmax(0,1fr))] gap-4 sm:gap-5">
@@ -102,6 +110,7 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
             key={c.id}
             ref={(el) => (colHeadRefs.current[i] = el)}
             data-axis="col"
+            data-complete={colComplete[i] ? "true" : "false"}
             className="cg-head"
           >
             <span className="font-display text-[11px] font-medium uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
@@ -123,6 +132,8 @@ export function Board({ grid, state, onSubmit }: BoardProps) {
             rowHeadRefs={rowHeadRefs}
             cellRefs={cellRefs}
             onValidated={fireLasers}
+            rowComplete={rowComplete[r]}
+            colComplete={colComplete}
           />
         ))}
       </div>
@@ -211,6 +222,8 @@ function RowFragment({
   rowHeadRefs,
   cellRefs,
   onValidated,
+  rowComplete,
+  colComplete,
 }: {
   rowCond: { id: string; label: string };
   row: number;
@@ -222,12 +235,15 @@ function RowFragment({
   rowHeadRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
   cellRefs: React.MutableRefObject<(HTMLDivElement | null)[][]>;
   onValidated: (row: number, col: number, continent: Continent) => void;
+  rowComplete: boolean;
+  colComplete: boolean[];
 }) {
   return (
     <>
       <div
         ref={(el) => (rowHeadRefs.current[row] = el)}
         data-axis="row"
+        data-complete={rowComplete ? "true" : "false"}
         className="cg-head"
       >
         <span className="font-display text-[11px] font-medium uppercase leading-snug tracking-wide text-foreground/80 sm:text-xs">
@@ -246,6 +262,7 @@ function RowFragment({
           colCond={colCond}
           disabled={disabled}
           usedCapitals={state.usedCapitals}
+          lineComplete={rowComplete || colComplete[c]}
           onSubmit={(name) => {
             const result = onSubmit(row, c, name);
             return result;
@@ -256,3 +273,4 @@ function RowFragment({
     </>
   );
 }
+
