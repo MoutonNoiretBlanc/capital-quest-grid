@@ -62,6 +62,7 @@ export const GridCell = forwardRef<HTMLDivElement, GridCellProps>(function GridC
       <div
         ref={ref}
         data-filled="true"
+        data-complete={lineComplete ? "true" : "false"}
         style={
           {
             ["--cell-accent" as string]: `hsl(${continentVar(cell.continent)})`,
