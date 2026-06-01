@@ -2,88 +2,94 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-/* Capital Grid — minimal, aéré, géométrique */
+/* Capital Grid — Editorial / Retro direction
+   Palette: Cream (#FBF9F5) · Ink Blue (#1B2A4A) · Retro Orange (#E65F2B) */
 
 @layer base {
   :root {
-    /* Surface */
-    --background: 30 10% 98.5%;          /* #fdfdfd warm light */
-    --foreground: 220 12% 14%;
+    /* Surface — warm vintage cream */
+    --background: 40 33% 97%;            /* #FBF9F5 */
+    --foreground: 222 47% 20%;           /* #1B2A4A ink blue */
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 12% 14%;
+    --card: 40 33% 97%;
+    --card-foreground: 222 47% 20%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 12% 14%;
+    --popover: 40 33% 97%;
+    --popover-foreground: 222 47% 20%;
 
-    --primary: 220 14% 18%;
-    --primary-foreground: 30 10% 98%;
-    --primary-glow: 220 80% 55%;
+    --primary: 222 47% 20%;
+    --primary-foreground: 40 33% 97%;
+    --primary-glow: 16 79% 53%;          /* retro orange accent */
 
-    --secondary: 30 8% 95%;
-    --secondary-foreground: 220 12% 14%;
+    --secondary: 222 47% 20% / 0.05;     /* used via hsl(var(--ink) / 0.05) below */
+    --secondary-foreground: 222 47% 20%;
 
-    --muted: 30 8% 95%;
-    --muted-foreground: 220 8% 46%;
+    --muted: 40 25% 93%;
+    --muted-foreground: 222 30% 35%;
 
-    --accent: 30 8% 93%;
-    --accent-foreground: 220 12% 14%;
+    --accent: 16 79% 53%;                /* retro orange */
+    --accent-foreground: 40 33% 97%;
 
     --destructive: 0 65% 52%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 152 50% 40%;
-    --success-foreground: 0 0% 100%;
+    --success: 16 79% 53%;               /* repurposed: retro orange */
+    --success-foreground: 40 33% 97%;
 
-    --border: 220 8% 86%;
-    --border-strong: 220 8% 72%;
-    --input: 220 8% 86%;
-    --ring: 220 14% 30%;
+    --border: 222 47% 20%;               /* ink blue thin lines */
+    --border-strong: 222 47% 20%;
+    --input: 222 47% 20%;
+    --ring: 16 79% 53%;
 
-    --radius: 0.125rem;                  /* 2px */
+    --radius: 0.125rem;
 
-    /* Continents — modern pastel accents */
-    --c-europe: 212 70% 62%;    /* pastel blue */
-    --c-asia: 38 88% 58%;       /* saffron yellow */
-    --c-africa: 145 32% 48%;    /* sage green */
-    --c-america: 12 72% 58%;    /* terracotta */
-    --c-oceania: 268 45% 64%;   /* soft purple */
+    /* Continents — kept for the center dot accent inside filled cells */
+    --c-europe: 222 47% 20%;
+    --c-asia: 222 47% 20%;
+    --c-africa: 222 47% 20%;
+    --c-america: 222 47% 20%;
+    --c-oceania: 222 47% 20%;
+
+    /* Brand triad as raw tokens */
+    --ink: 222 47% 20%;
+    --cream: 40 33% 97%;
+    --retro: 16 79% 53%;
 
     --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
-    --sidebar-background: 30 10% 98.5%;
-    --sidebar-foreground: 220 12% 14%;
-    --sidebar-primary: 220 14% 18%;
-    --sidebar-primary-foreground: 30 10% 98%;
-    --sidebar-accent: 30 8% 93%;
-    --sidebar-accent-foreground: 220 12% 14%;
-    --sidebar-border: 220 8% 86%;
-    --sidebar-ring: 220 14% 30%;
+    --sidebar-background: 40 33% 97%;
+    --sidebar-foreground: 222 47% 20%;
+    --sidebar-primary: 222 47% 20%;
+    --sidebar-primary-foreground: 40 33% 97%;
+    --sidebar-accent: 16 79% 53%;
+    --sidebar-accent-foreground: 40 33% 97%;
+    --sidebar-border: 222 47% 20%;
+    --sidebar-ring: 16 79% 53%;
   }
 
   .dark {
-    --background: 220 12% 9%;
-    --foreground: 30 10% 95%;
-    --card: 220 12% 12%;
-    --card-foreground: 30 10% 95%;
-    --popover: 220 12% 12%;
-    --popover-foreground: 30 10% 95%;
-    --primary: 30 10% 95%;
-    --primary-foreground: 220 12% 9%;
-    --secondary: 220 10% 16%;
-    --secondary-foreground: 30 10% 95%;
-    --muted: 220 10% 16%;
-    --muted-foreground: 220 8% 60%;
-    --accent: 220 10% 18%;
-    --accent-foreground: 30 10% 95%;
+    --background: 222 47% 12%;
+    --foreground: 40 33% 95%;
+    --card: 222 47% 14%;
+    --card-foreground: 40 33% 95%;
+    --popover: 222 47% 14%;
+    --popover-foreground: 40 33% 95%;
+    --primary: 40 33% 95%;
+    --primary-foreground: 222 47% 12%;
+    --secondary: 222 40% 20%;
+    --secondary-foreground: 40 33% 95%;
+    --muted: 222 40% 20%;
+    --muted-foreground: 40 20% 70%;
+    --accent: 16 79% 53%;
+    --accent-foreground: 40 33% 95%;
     --destructive: 0 65% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 10% 22%;
-    --border-strong: 220 10% 32%;
-    --input: 220 10% 22%;
-    --ring: 30 10% 80%;
+    --border: 40 33% 95%;
+    --border-strong: 40 33% 95%;
+    --input: 40 33% 95%;
+    --ring: 16 79% 53%;
   }
 }
 
@@ -97,40 +103,39 @@
   }
 
   body {
-    font-family: 'Geologica', 'Inter', system-ui, -apple-system, sans-serif;
-    font-feature-settings: "ss01", "cv11";
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, .font-display {
-    font-family: 'Geologica', system-ui, sans-serif;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
     letter-spacing: -0.02em;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .font-mono {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    letter-spacing: 0.04em;
   }
 }
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
 
-  /* Continent dots */
-  .dot-europe   { background-color: hsl(var(--c-europe)); }
-  .dot-asia     { background-color: hsl(var(--c-asia)); }
-  .dot-africa   { background-color: hsl(var(--c-africa)); }
-  .dot-america  { background-color: hsl(var(--c-america)); }
-  .dot-oceania  { background-color: hsl(var(--c-oceania)); }
+  .dot-europe,
+  .dot-asia,
+  .dot-africa,
+  .dot-america,
+  .dot-oceania { background-color: hsl(var(--retro)); }
 }
 
-/* ========== Grid cell — soft rounded with thin border following the curve ========== */
+/* ========== Grid cell ========== */
 
 .cg-cell {
   position: relative;
-  background-color: hsl(var(--card));
-  border: 1px solid hsl(var(--border-strong));
+  background-color: hsl(var(--cream));
+  border: 1px solid hsl(var(--ink) / 0.85);
   border-radius: 14px;
   overflow: hidden;
   transition:
@@ -139,41 +144,40 @@
     box-shadow 0.4s var(--transition-smooth);
 }
 
-/* Filled / locked state — emerald glow propagating from top-left corner */
+/* Filled / locked state — retro orange neon */
 .cg-cell[data-filled="true"] {
-  background-color: hsl(0 0% 100%);
-  border-color: hsl(160 84% 39%);
+  background-color: hsl(var(--cream));
+  border-color: hsl(var(--retro));
   box-shadow:
-    inset 3px 0 0 0 hsl(var(--cell-accent, var(--primary-glow))),
-    0 0 15px rgba(16, 185, 129, 0.6);
+    inset 3px 0 0 0 hsl(var(--retro)),
+    0 0 15px hsl(var(--retro) / 0.6);
   animation: cell-lock-corner 0.6s var(--transition-smooth) both;
   transform-origin: top left;
 }
 
 @keyframes cell-lock-corner {
   0% {
-    border-color: hsl(var(--border-strong));
+    border-color: hsl(var(--ink) / 0.85);
     box-shadow:
-      inset 3px 0 0 0 hsl(var(--cell-accent, var(--primary-glow))),
-      0 0 0 0 hsl(160 84% 39% / 0);
+      inset 3px 0 0 0 hsl(var(--retro)),
+      0 0 0 0 hsl(var(--retro) / 0);
   }
   35% {
-    border-color: hsl(160 84% 39%);
+    border-color: hsl(var(--retro));
     box-shadow:
-      inset 3px 0 0 0 hsl(var(--cell-accent, var(--primary-glow))),
-      -2px -2px 16px 2px hsl(160 84% 39% / 0.7);
+      inset 3px 0 0 0 hsl(var(--retro)),
+      -2px -2px 16px 2px hsl(var(--retro) / 0.7);
   }
   100% {
-    border-color: hsl(160 84% 39%);
+    border-color: hsl(var(--retro));
     box-shadow:
-      inset 3px 0 0 0 hsl(var(--cell-accent, var(--primary-glow))),
-      0 0 0 1px hsl(160 84% 39% / 0.5),
-      0 0 18px 2px hsl(160 84% 39% / 0.32),
-      0 0 36px 8px hsl(160 84% 39% / 0.16);
+      inset 3px 0 0 0 hsl(var(--retro)),
+      0 0 0 1px hsl(var(--retro) / 0.5),
+      0 0 18px 2px hsl(var(--retro) / 0.32),
+      0 0 36px 8px hsl(var(--retro) / 0.16);
   }
 }
 
-/* Center anchor dot inside filled cell */
 .cg-anchor {
   position: absolute;
   top: 50%;
@@ -181,31 +185,30 @@
   width: 6px;
   height: 6px;
   border-radius: 9999px;
-  background: hsl(var(--cell-accent, var(--primary-glow)));
-  box-shadow: 0 0 0 4px hsl(var(--cell-accent, var(--primary-glow)) / 0.12);
+  background: hsl(var(--retro));
+  box-shadow: 0 0 0 4px hsl(var(--retro) / 0.15);
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 2;
 }
 
-/* Score bubble */
+/* Score bubble — retro orange pill */
 .cg-score {
   position: absolute;
   bottom: 8px;
   right: 8px;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 10px;
+  font-weight: 600;
   letter-spacing: 0.04em;
-  color: hsl(var(--muted-foreground));
-  background: hsl(var(--secondary));
+  color: hsl(var(--cream));
+  background: hsl(var(--retro));
   border-radius: 9999px;
   padding: 2px 8px;
   line-height: 1.4;
   z-index: 3;
 }
 
-
-/* Hover circle — subtle expanding disc */
 .cg-hover-circle {
   position: absolute;
   inset: 0;
@@ -220,7 +223,7 @@
   width: 78%;
   aspect-ratio: 1 / 1;
   border-radius: 9999px;
-  background: hsl(var(--foreground) / 0.04);
+  background: hsl(var(--ink) / 0.05);
   transform: scale(0);
   opacity: 0;
   transition:
@@ -237,7 +240,7 @@
   display: none;
 }
 
-/* Header cells — soft pill, no borders */
+/* Header cells — ink-tinted pill (5% opacity) */
 .cg-head {
   position: relative;
   padding: 0.85rem 0.75rem;
@@ -245,14 +248,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: hsl(var(--secondary));
+  background-color: hsl(var(--ink) / 0.05);
   border-radius: 14px;
   min-height: 56px;
-}
-.cg-head[data-axis="row"] {
-  justify-content: center;
-  text-align: center;
-  padding-right: 0.75rem;
+  color: hsl(var(--ink));
 }
 
 /* ========== Animations ========== */
@@ -279,40 +278,12 @@
 }
 .animate-dot-pop { animation: dot-pop 0.5s var(--transition-smooth) both; }
 
-@keyframes cell-lock {
-  0%   { transform: scale(0.96); }
-  55%  { transform: scale(1.015); }
-  100% { transform: scale(1); }
-}
-
-@keyframes laser-grow {
-  from { transform: scaleX(0); opacity: 0; }
-  to   { transform: scaleX(1); opacity: 1; }
-}
-@keyframes laser-grow-y {
-  from { transform: scaleY(0); opacity: 0; }
-  to   { transform: scaleY(1); opacity: 1; }
-}
-@keyframes laser-fade {
-  0%   { opacity: 0; }
-  20%  { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* Connection lasers — SVG beams animated as light trails */
+/* Connection lasers — retro orange beams */
 @keyframes laser-dash {
   from { stroke-dashoffset: var(--len, 100); }
   to   { stroke-dashoffset: 0; }
 }
 @keyframes laser-fade-out {
   0%   { opacity: 1; }
-  100% { opacity: 0; }
-}
-.cg-laser-line {
-  /* fallback for browsers ignoring inline animation timing */
-}
-
-@keyframes laser-fade-tail {
-  0%, 55% { opacity: 1; }
   100% { opacity: 0; }
 }
