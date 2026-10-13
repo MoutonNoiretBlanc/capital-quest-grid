@@ -1,0 +1,332 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+/* Capital Grid — Editorial / Retro direction
+   Palette: Cream (#FBF9F5) · Ink Blue (#1B2A4A) · Rose flashy (#FF2E93) · Vert flashy (#00E676) */
+
+@layer base {
+  :root {
+    /* Surface — warm vintage cream */
+    --background: 40 33% 97%;            /* #FBF9F5 */
+    --foreground: 222 47% 20%;           /* #1B2A4A ink blue */
+
+    --card: 40 33% 97%;
+    --card-foreground: 222 47% 20%;
+
+    --popover: 40 33% 97%;
+    --popover-foreground: 222 47% 20%;
+
+    --primary: 222 47% 20%;
+    --primary-foreground: 40 33% 97%;
+    --primary-glow: 331 100% 59%;          /* rose flashy */
+
+    --secondary: 222 47% 20% / 0.05;     /* used via hsl(var(--ink) / 0.05) below */
+    --secondary-foreground: 222 47% 20%;
+
+    --muted: 40 25% 93%;
+    --muted-foreground: 222 30% 35%;
+
+    --accent: 331 100% 59%;                /* rose flashy */
+    --accent-foreground: 40 33% 97%;
+
+    --destructive: 0 65% 52%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 331 100% 59%;               /* rose flashy */
+    --success-foreground: 40 33% 97%;
+
+    --border: 222 47% 20%;               /* ink blue thin lines */
+    --border-strong: 222 47% 20%;
+    --input: 222 47% 20%;
+    --ring: 331 100% 59%;
+
+    --radius: 0.125rem;
+
+    /* Continents — kept for the center dot accent inside filled cells */
+    --c-europe: 222 47% 20%;
+    --c-asia: 222 47% 20%;
+    --c-africa: 222 47% 20%;
+    --c-america: 222 47% 20%;
+    --c-oceania: 222 47% 20%;
+
+    /* Brand triad as raw tokens */
+    --ink: 222 47% 20%;
+    --cream: 40 33% 97%;
+    --retro: 331 100% 59%;
+    --retro70: 151 100% 45%;             /* #00E676 — vert flashy */
+
+    --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+    --sidebar-background: 40 33% 97%;
+    --sidebar-foreground: 222 47% 20%;
+    --sidebar-primary: 222 47% 20%;
+    --sidebar-primary-foreground: 40 33% 97%;
+    --sidebar-accent: 331 100% 59%;
+    --sidebar-accent-foreground: 40 33% 97%;
+    --sidebar-border: 222 47% 20%;
+    --sidebar-ring: 331 100% 59%;
+  }
+
+  .dark {
+    --background: 222 47% 12%;
+    --foreground: 40 33% 95%;
+    --card: 222 47% 14%;
+    --card-foreground: 40 33% 95%;
+    --popover: 222 47% 14%;
+    --popover-foreground: 40 33% 95%;
+    --primary: 40 33% 95%;
+    --primary-foreground: 222 47% 12%;
+    --secondary: 222 40% 20%;
+    --secondary-foreground: 40 33% 95%;
+    --muted: 222 40% 20%;
+    --muted-foreground: 40 20% 70%;
+    --accent: 331 100% 59%;
+    --accent-foreground: 40 33% 95%;
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 40 33% 95%;
+    --border-strong: 40 33% 95%;
+    --input: 40 33% 95%;
+    --ring: 331 100% 59%;
+
+    /* Tokens de marque inversés pour le mode night */
+    --ink: 40 33% 95%;
+    --cream: 222 47% 14%;
+    --success: 331 100% 59%;
+    --success-foreground: 222 47% 12%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body {
+    @apply bg-background text-foreground;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  .font-mono {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    letter-spacing: 0.04em;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  .dot-europe,
+  .dot-asia,
+  .dot-africa,
+  .dot-america,
+  .dot-oceania { background-color: hsl(var(--retro)); }
+}
+
+/* ========== Grid cell ========== */
+
+.cg-cell {
+  position: relative;
+  background-color: hsl(var(--cream));
+  border: 1px solid hsl(var(--ink) / 0.85);
+  border-radius: 14px;
+  overflow: hidden;
+  transition:
+    background-color 0.5s var(--transition-smooth),
+    border-color 0.4s var(--transition-smooth),
+    box-shadow 0.4s var(--transition-smooth);
+}
+
+/* Filled / locked state — rose flashy */
+.cg-cell[data-filled="true"] {
+  background-color: hsl(var(--cream));
+  border-color: hsl(var(--retro));
+  box-shadow:
+    inset 3px 0 0 0 hsl(var(--retro)),
+    0 0 15px hsl(var(--retro) / 0.6);
+  animation: cell-lock-corner 0.6s var(--transition-smooth) both;
+  transform-origin: top left;
+}
+
+@keyframes cell-lock-corner {
+  0% {
+    border-color: hsl(var(--ink) / 0.85);
+    box-shadow:
+      inset 3px 0 0 0 hsl(var(--retro)),
+      0 0 0 0 hsl(var(--retro) / 0);
+  }
+  35% {
+    border-color: hsl(var(--retro));
+    box-shadow:
+      inset 3px 0 0 0 hsl(var(--retro)),
+      -2px -2px 16px 2px hsl(var(--retro) / 0.7);
+  }
+  100% {
+    border-color: hsl(var(--retro));
+    box-shadow:
+      inset 3px 0 0 0 hsl(var(--retro)),
+      0 0 0 1px hsl(var(--retro) / 0.5),
+      0 0 18px 2px hsl(var(--retro) / 0.32),
+      0 0 36px 8px hsl(var(--retro) / 0.16);
+  }
+}
+
+.cg-anchor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: hsl(var(--retro));
+  box-shadow: 0 0 0 4px hsl(var(--retro) / 0.15);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Score bubble — rose flashy pill */
+.cg-score {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: hsl(222 47% 12%);
+  background: hsl(var(--retro));
+  border-radius: 9999px;
+  padding: 2px 8px;
+  line-height: 1.4;
+  z-index: 3;
+}
+
+.cg-hover-circle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 0;
+}
+.cg-hover-circle::before {
+  content: "";
+  width: 78%;
+  aspect-ratio: 1 / 1;
+  border-radius: 9999px;
+  background: hsl(var(--ink) / 0.05);
+  transform: scale(0);
+  opacity: 0;
+  transition:
+    transform 0.45s var(--transition-smooth),
+    opacity 0.35s var(--transition-smooth);
+}
+.cg-cell:hover .cg-hover-circle::before,
+.cg-cell:focus-visible .cg-hover-circle::before {
+  transform: scale(1);
+  opacity: 1;
+}
+.cg-cell[data-filled="true"] .cg-hover-circle::before,
+.cg-cell[data-disabled="true"] .cg-hover-circle::before {
+  display: none;
+}
+
+/* Header cells — ink-tinted pill (5% opacity) */
+.cg-head {
+  position: relative;
+  padding: 0.85rem 0.75rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(var(--ink) / 0.05);
+  border-radius: 14px;
+  min-height: 56px;
+  color: hsl(var(--ink));
+}
+
+/* ========== Animations ========== */
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+.animate-shake { animation: shake 0.4s ease-in-out; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.45s var(--transition-smooth) both; }
+
+@keyframes dot-pop {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.4); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-dot-pop { animation: dot-pop 0.5s var(--transition-smooth) both; }
+
+/* Connection lasers — rose flashy beams */
+@keyframes laser-dash {
+  from { stroke-dashoffset: var(--len, 100); }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes laser-fade-out {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ========== Completed row / column — vert flashy persistent state ========== */
+
+.cg-cell[data-filled="true"][data-complete="true"] {
+  border-color: hsl(var(--retro70));
+  box-shadow:
+    inset 3px 0 0 0 hsl(var(--retro70)),
+    0 0 0 1px hsl(var(--retro70) / 0.5),
+    0 0 18px 2px hsl(var(--retro70) / 0.32),
+    0 0 36px 8px hsl(var(--retro70) / 0.16);
+  /* Override the lock animation so green is the final persistent color */
+  animation: none;
+  transition:
+    border-color 0.5s var(--transition-smooth),
+    box-shadow 0.5s var(--transition-smooth);
+}
+
+.cg-cell[data-filled="true"][data-complete="true"] .cg-score {
+  background: hsl(var(--retro70));
+  transition: background 0.5s var(--transition-smooth);
+}
+
+.cg-head[data-complete="true"] {
+  border: 1px solid hsl(var(--retro70));
+  background-color: hsl(var(--retro70) / 0.18);
+  box-shadow:
+    0 0 0 1px hsl(var(--retro70) / 0.5),
+    0 0 18px 2px hsl(var(--retro70) / 0.32),
+    0 0 36px 8px hsl(var(--retro70) / 0.16);
+  color: hsl(var(--ink));
+  transition:
+    border-color 0.5s var(--transition-smooth),
+    background-color 0.5s var(--transition-smooth),
+    box-shadow 0.5s var(--transition-smooth),
+    color 0.5s var(--transition-smooth);
+}
